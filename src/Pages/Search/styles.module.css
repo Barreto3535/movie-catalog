@@ -1,0 +1,64 @@
+.container {
+  padding: var(--spacing-lg);
+}
+
+.form {
+  display: flex;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.form input {
+  flex: 1;
+  padding: var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-muted);
+}
+
+.form button {
+  background: var(--color-primary);
+  color: var(--color-text);
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.form button:hover {
+  background: #f40612;
+}
+
+.results {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.pagination button {
+  background: var(--color-primary);
+  color: var(--color-text);
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  background: var(--color-muted);
+  cursor: not-allowed;
+}
+@media screen and (max-width: 600px) {
+  .results {
+    
+    justify-content: center;
+    padding: 0;
+  }
+  
+}

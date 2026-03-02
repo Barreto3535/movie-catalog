@@ -1,0 +1,68 @@
+.container {
+  padding: 16px;
+  background-color: var(--color-background);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.carousel {
+  display: flex;
+  overflow-x: scroll;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.slide {
+  min-width: 300px;
+  position: relative;
+}
+
+.backdrop {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.title {
+  position: absolute;
+  bottom: 8px;
+  left: 12px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.7);
+}
+
+.section {
+  margin-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.sectionTitle {
+  font-size: 1.4rem;
+  margin-bottom: 12px;
+}
+
+.scroll {
+  display: flex;
+  overflow-x: auto;
+  gap: 12px;
+}
+
+.card {
+  min-width: 140px;
+  text-align: center;
+}
+
+.poster {
+  width: 100%;
+  border-radius: 6px;
+}
+
+.cardTitle {
+  font-size: 0.9rem;
+  margin-top: 6px;
+}

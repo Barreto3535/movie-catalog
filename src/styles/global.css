@@ -1,0 +1,66 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* 1. Define a largura total da barra de rolagem */
+::-webkit-scrollbar {
+    width: 10px; /* Largura na vertical */
+    height: 10px; /* Altura na horizontal */
+}
+
+/* 2. Estiliza o fundo (track) da barra de rolagem */
+::-webkit-scrollbar-track {
+    background: transparent; /* Fundo transparente */
+}
+
+/* 3. Estiliza a parte móvel (thumb) da barra de rolagem */
+::-webkit-scrollbar-thumb {
+    background-color: var(--color-primary); /* Cor da barra */
+    border-radius: 10px; /* Cantos arredondados */
+    border: 2px solid transparent; /* Cria um "espaço" ao redor da cor */
+    background-clip: content-box; /* Garante que a cor só apareça no conteúdo */
+}
+
+/* 4. Estiliza a parte móvel ao passar o mouse (hover) */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Cor mais escura no hover */
+}
+
+}
+
+/* Variáveis globais */
+:root {
+  --color-primary: #ff5e00; /* vermelho Netflix-like */
+  --color-secondary: #221f1f;
+  --color-background: #141414;
+  --color-text: #ffffff;
+  --color-muted: #999999;
+
+  --font-main: 'Inter', 'Roboto', sans-serif;
+
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+}
+
+/* Estilo global */
+body {
+  font-family: var(--font-main);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+a {
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--color-primary);
+}
