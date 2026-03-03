@@ -31,53 +31,77 @@ export default function Login() {
 
   return (
     <div className={styles.container}>
+      <div className={styles.glowEffect}></div>
+
       <form onSubmit={signIn} className={styles.form}>
+        <header className={styles.logoHeader}>
+          <img
+            src="/logocomnome.png"
+            alt="BarretoFlix"
+            className={styles.logo}
+          />
+          <p>Luz, câmera... Logar</p>
+        </header>
+
+        <div className={styles.divider}></div>
+
         {msg && (
           <div className={styles.errorMessage}>
-            Não foi possível entrar: {msg}
+            ⚠️ {msg}
           </div>
         )}
 
         <div className={styles.formGroup}>
           <label htmlFor="email" className={styles.label}>
-            E-mail
+            E-MAIL
           </label>
           <input
             type="email"
             id="email"
             name="email"
-            placeholder="Digite seu email"
+            placeholder="seu@email.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
             className={styles.input}
           />
+          <span className={styles.inputIcon}>🎥</span>
         </div>
 
         <div className={styles.formGroup}>
           <label htmlFor="password" className={styles.label}>
-            Senha
+            SENHA
           </label>
           <input
             type="password"
             id="password"
             name="password"
-            placeholder="Digite sua senha"
+            placeholder="••••••••"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
             className={styles.input}
           />
+          <span className={styles.inputIcon}>🔐</span>
         </div>
 
         <button
           type="submit"
           disabled={loading}
-          className={styles.button}
+          className={`${styles.button} ${loading ? styles.loading : ''}`}
         >
-          {loading ? "Entrando..." : "Entrar"}
+          {loading ? "ACESSANDO..." : "ACESSAR"}
         </button>
+
+        <div className={styles.signupLink}>
+          <span>PRIMEIRA VEZ?</span>
+          <a href="#">CRIAR CONTA</a>
+        </div>
       </form>
+
+      <div className={styles.filmStrip}></div>
+      <div className={`${styles.filmStrip} ${styles.filmStripRight}`}></div>
+      <div className={styles.filmCode}>BARRETOFLIX_001</div>
     </div>
   );
 }
