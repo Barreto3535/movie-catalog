@@ -10,6 +10,7 @@ import Search from './Pages/Search';
 import Category from './Pages/Category';
 import Details from './Pages/Details';
 import { NotFound } from './Pages/NotFound';
+import { Footer } from './components/Footer';
 
 function ProtectedRoute({ session, children }: { session: Session | null; children: React.ReactNode }) {
   if (!session) return <Navigate to="/login" replace />;
@@ -47,6 +48,7 @@ function App() {
             <ProtectedRoute session={session}>
               <Header />
               <Home />
+              <Footer />
             </ProtectedRoute>
           }
         />
@@ -56,6 +58,7 @@ function App() {
             <ProtectedRoute session={session}>
               <Header />
               <Search />
+              <Footer />
             </ProtectedRoute>
           }
         />
@@ -65,6 +68,7 @@ function App() {
             <ProtectedRoute session={session}>
               <Header />
               <Category />
+              <Footer />
             </ProtectedRoute>
           }
         />
@@ -74,6 +78,7 @@ function App() {
             <ProtectedRoute session={session}>
               <Header />
               <Details />
+              <Footer />
             </ProtectedRoute>
           }
         />

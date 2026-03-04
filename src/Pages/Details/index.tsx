@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { getMovieDetails, getSimilarMovies } from "../../services/movieService";
+import { getMovieDetails, getSimilarMovies, getMovieVideos } from "../../services/movieService";
 import { MovieCard } from "../../components/MovieCard";
 import styles from "./styles.module.css";
 
@@ -10,13 +10,24 @@ function Details() {
 
   const [movie, setMovie] = useState<any>(null);
   const [similar, setSimilar] = useState<any[]>([]);
+  const [trailer, setTrailer] = useState<any>(null);
+  const [showTrailer, setShowTrailer] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function loadData() {
       try {
+        setLoading(true);
         const details = await getMovieDetails(movieId);
         setMovie(details);
+        // Coloca isso dentro do useEffect, depois do setMovie(details)
+        console.log('Buscando trailer para o filme:', movieId);
+        const video = await getMovieVideos(movieId);
+        console.log('Trailer encontrado:', video); // Vai mostrar null ou o objeto do trailer
+        setTrailer(video);
+        // // Buscar trailer
+        // const video = await getMovieVideos(movieId);
+        // setTrailer(video);
 
         const sims = await getSimilarMovies(movieId);
         setSimilar(sims);
@@ -25,6 +36,7 @@ function Details() {
       } finally {
         setLoading(false);
       }
+
     }
     loadData();
   }, [movieId]);
@@ -109,19 +121,21 @@ function Details() {
               </div>
             )}
 
-            {/* Botão assistir em destaque */}
-            <a
-              href={`https://playerflixapi.com/filme/${id}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.watchButton}
-            >
-              ▶ ASSISTIR AGORA
-            </a>
+            {/* Botões de ação */}
+            <div className={styles.actionButtons}>
+              {trailer && (
+                <button
+                  onClick={() => setShowTrailer(true)}
+                  className={styles.trailerButton}
+                >
+                  ▶ VER TRAILER
+                </button>
+              )}
+            </div>
           </div>
         </div>
 
-        {/* Player Section (opcional - pode manter o iframe se preferir) */}
+        {/* Player Section */}
         <div className={styles.playerSection}>
           <h3 className={styles.sectionTitle}>Assistir Agora</h3>
           <div className={styles.playerWrapper}>
@@ -137,6 +151,7 @@ function Details() {
           </div>
         </div>
 
+        {/* Filmes Semelhantes */}
         {similar.length > 0 && (
           <div className={styles.similarSection}>
             <h3 className={styles.sectionTitle}>Filmes Semelhantes</h3>
@@ -155,6 +170,25 @@ function Details() {
           </div>
         )}
       </div>
+
+      {/* Modal do Trailer */}
+      {showTrailer && trailer && (
+        <div className={styles.modalOverlay} onClick={() => setShowTrailer(false)}>
+          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+            <button className={styles.modalClose} onClick={() => setShowTrailer(false)}>
+              ✕
+            </button>
+            <iframe
+              src={`https://www.youtube.com/embed/${trailer.key}?autoplay=1`}
+              title={trailer.name}
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className={styles.trailerIframe}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

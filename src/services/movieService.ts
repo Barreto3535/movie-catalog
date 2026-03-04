@@ -61,3 +61,28 @@ export async function getSimilarMovies(id: number) {
   const data = await fetchFromTMDB(`/movie/${id}/similar?language=pt-BR`);
   return data.results;
 }
+//get trailers
+export async function getMovieVideos(movieId: number) {
+  try {
+    // Tenta em português primeiro
+    const dataPt = await fetchFromTMDB(`/movie/${movieId}/videos?language=pt-BR`);
+    
+    if (dataPt.results?.length > 0) {
+      const trailer = dataPt.results.find((v: any) => v.type === "Trailer");
+      return trailer || dataPt.results[0];
+    }
+    
+    // Se não achar, tenta em inglês
+    const dataEn = await fetchFromTMDB(`/movie/${movieId}/videos?language=en-US`);
+    
+    if (dataEn.results?.length > 0) {
+      const trailer = dataEn.results.find((v: any) => v.type === "Trailer");
+      return trailer || dataEn.results[0];
+    }
+    
+    return null;
+  } catch (error) {
+    console.error('Erro ao buscar vídeos:', error);
+    return null;
+  }
+}

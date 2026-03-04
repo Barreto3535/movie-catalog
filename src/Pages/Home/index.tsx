@@ -1,4 +1,3 @@
-// Home.tsx
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getGenres, getMoviesByCategory, getPopularMovies } from "../../services/movieService";
@@ -18,7 +17,6 @@ function Home() {
         const popularMovies = await getPopularMovies();
         setPopular(popularMovies);
 
-        // Pega um filme aleatório dos populares pra ser o herói
         if (popularMovies.length > 0) {
           const randomIndex = Math.floor(Math.random() * popularMovies.length);
           setHeroMovie(popularMovies[randomIndex]);
@@ -28,9 +26,9 @@ function Home() {
         setGenres(gs);
 
         const results: Record<number, any[]> = {};
-        for (const g of gs.slice(0, 5)) { // 5 categorias fica bom
+        for (const g of gs.slice(0, 5)) {
           const { results: movies } = await getMoviesByCategory(g.id, 1);
-          results[g.id] = movies.slice(0, 20); // limita a 10 filmes
+          results[g.id] = movies.slice(0, 20);
         }
         setMoviesByCategory(results);
       } catch (err) {
@@ -45,17 +43,16 @@ function Home() {
 
   if (loading) {
     return (
-      <div className={styles.container}>
-        <div className={styles.skeletonHero}></div>
-        <div className={styles.skeletonCarousel}></div>
-        <div className={styles.skeletonCarousel}></div>
+      <div className={styles.loadingContainer}>
+        <div className={styles.spinner}></div>
+        <p>Carregando...</p>
       </div>
     );
   }
 
   return (
     <div className={styles.container}>
-      {/* Hero Section - Destaque igual Netflix/HBO */}
+      {/* Hero Section */}
       {heroMovie && (
         <section className={styles.hero}>
           <img
@@ -73,35 +70,33 @@ function Home() {
               <Link to={`/details/${heroMovie.id}`} className={styles.heroButton}>
                 ▶ ASSISTIR
               </Link>
-              <button className={styles.heroButtonOutline}>
-                + MINHA LISTA
-              </button>
             </div>
           </div>
         </section>
       )}
 
-      {/* Seção de Populares com título estilizado */}
-      <section className={styles.section}>
-        <div className={styles.sectionHeader}>
-          <h2 className={styles.sectionTitle}>POPULARES</h2>
-          <span className={styles.sectionBadge}>🔥</span>
-        </div>
-        <Carousel movies={popular.slice(0, 15)} />
-      </section>
-
-      {/* Categorias */}
-      {genres.slice(0, 5).map((g) => (
-        <section key={g.id} className={styles.section}>
+      {/* Conteúdo */}
+      <div className={styles.content}>
+        <section className={styles.section}>
           <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>{g.name}</h2>
-            <Link to={`/category/${g.id}`} className={styles.seeAll}>
-              VER TUDO →
-            </Link>
+            <h2 className={styles.sectionTitle}>POPULARES</h2>
+            <span className={styles.sectionBadge}>🔥</span>
           </div>
-          <Carousel movies={moviesByCategory[g.id] || []} />
+          <Carousel movies={popular.slice(0, 20)} />
         </section>
-      ))}
+
+        {genres.slice(0, 5).map((g) => (
+          <section key={g.id} className={styles.section}>
+            <div className={styles.sectionHeader}>
+              <h2 className={styles.sectionTitle}>{g.name}</h2>
+              <Link to={`/category/${g.id}`} className={styles.seeAll}>
+                VER TUDO →
+              </Link>
+            </div>
+            <Carousel movies={moviesByCategory[g.id] || []} />
+          </section>
+        ))}
+      </div>
     </div>
   );
 }

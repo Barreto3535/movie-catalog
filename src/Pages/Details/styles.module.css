@@ -13,7 +13,7 @@
   width: 100%;
   height: 50vh;
   min-height: 400px;
-  margin-bottom: -80px; /* Reduzi um pouco */
+  margin-bottom: -80px;
   flex-shrink: 0;
 }
 
@@ -42,7 +42,7 @@
 .contentWrapper {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px 20px; /* Reduzi padding bottom */
+  padding: 0 20px 20px;
   position: relative;
   z-index: 2;
   flex: 1;
@@ -79,7 +79,7 @@
   display: grid;
   grid-template-columns: 300px 1fr;
   gap: 30px;
-  margin-bottom: 30px; /* Reduzi */
+  margin-bottom: 30px;
   background: rgba(15, 15, 15, 0.7);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -216,25 +216,33 @@
   margin: 0;
 }
 
-/* Watch Button */
-.watchButton {
+/* Action Buttons */
+.actionButtons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.watchButton, .trailerButton {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: var(--color-primary);
-  color: #fff;
-  text-decoration: none;
   padding: 12px 30px;
   border-radius: 30px;
+  font-size: 1rem;
   font-weight: 600;
-  font-size: 1.1rem;
-  letter-spacing: 1px;
-  margin-top: 8px; /* Reduzi */
-  transition: all 0.2s ease;
-  border: none;
   cursor: pointer;
-  width: fit-content;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  border: none;
+}
+
+.watchButton {
+  background: var(--color-primary);
+  color: #fff;
 }
 
 .watchButton:hover {
@@ -243,14 +251,25 @@
   box-shadow: 0 5px 15px rgba(255, 94, 0, 0.3);
 }
 
+.trailerButton {
+  background: transparent;
+  color: #fff;
+  border: 2px solid var(--color-primary);
+}
+
+.trailerButton:hover {
+  background: var(--color-primary);
+  transform: scale(1.05);
+}
+
 /* Player Section */
 .playerSection {
-  margin-bottom: 30px; /* Reduzi */
+  margin-bottom: 30px;
 }
 
 .sectionTitle {
   font-size: 1.5rem;
-  margin: 0 0 16px 0; /* Reduzi */
+  margin: 0 0 16px 0;
   color: #fff;
   position: relative;
   display: inline-block;
@@ -283,9 +302,9 @@
   border: none;
 }
 
-/* Similar Movies Section */
+/* Similar Movies */
 .similarSection {
-  margin-top: 20px; /* Reduzi */
+  margin-top: 20px;
 }
 
 .similarSection:empty {
@@ -298,12 +317,88 @@
   gap: 20px;
 }
 
+/* Modal do Trailer */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  animation: fadeIn 0.3s ease;
+}
+
+.modalContent {
+  position: relative;
+  width: 90%;
+  max-width: 1000px;
+  aspect-ratio: 16/9;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+  border: 2px solid rgba(255, 94, 0, 0.3);
+  animation: modalIn 0.3s ease;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modalClose {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2001;
+  transition: all 0.2s ease;
+}
+
+.modalClose:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  transform: rotate(90deg);
+}
+
+.trailerIframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .hero {
     height: 30vh;
     min-height: 200px;
-    margin-bottom: -40px; /* Reduzi no mobile */
+    margin-bottom: -40px;
   }
 
   .infoSection {
@@ -340,10 +435,14 @@
     transform: translateX(-50%);
   }
 
-  .watchButton {
+  .actionButtons {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .watchButton, .trailerButton {
     width: 100%;
     justify-content: center;
-    margin-top: 12px;
   }
 
   .sectionTitle::after {
@@ -357,7 +456,7 @@
   }
 
   .contentWrapper {
-    padding: 0 16px 40px; /* Padding mais equilibrado no mobile */
+    padding: 0 16px 40px;
   }
 
   .playerSection {
@@ -366,6 +465,18 @@
 
   .similarSection {
     margin-top: 20px;
+  }
+  
+  .modalContent {
+    width: 95%;
+  }
+  
+  .modalClose {
+    top: 10px;
+    right: 10px;
+    width: 35px;
+    height: 35px;
+    font-size: 1.2rem;
   }
 }
 
@@ -394,15 +505,16 @@
   }
 
   .contentWrapper {
-    padding: 0 12px 30px; /* Reduzi ainda mais */
+    padding: 0 12px 30px;
   }
 
   .infoSection {
     padding: 16px;
   }
-
-  html,body{
-    overflow-y: auto;
-    overflow-x: hidden;
+  
+  .modalClose {
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
   }
 }
