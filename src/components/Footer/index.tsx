@@ -1,6 +1,5 @@
-// Footer.tsx (um novo componente)
 import styles from "./styles.module.css";
-import tmdbLogo from "/path-to-your-tmdb-logo.svg"; // Baixe o logo branco e coloque na pasta public ou assets
+import tmdbLogo from "/path-to-your-tmdb-logo.svg";
 
 export function Footer() {
   return (

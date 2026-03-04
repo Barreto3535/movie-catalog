@@ -82,8 +82,8 @@ function App() {
             </ProtectedRoute>
           }
         />
-        {/* <Route path="*" element={<Navigate to={session ? "/home" : "/login"} replace />} /> */}
-        <Route path="*" element={<NotFound />} />
+        <Route path="" element={<Navigate to={session ? "/home" : "/login"} replace />} />
+        <Route path="*" element={<NotFound />} />,
       </Routes>
     </BrowserRouter>
   );
