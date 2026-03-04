@@ -30,10 +30,12 @@ export async function addToList(
     });
 
     if (error) throw error;
+    if (data) return data //gambiarra
     
     return { success: true };
   } catch (error: any) {
     console.error('Erro ao adicionar item à lista:', error);
+    
     return { success: false, error: error.message };
   }
 }
@@ -54,6 +56,7 @@ export async function removeFromList(
     });
 
     if (error) throw error;
+    if (data) return data //gambiarra
     
     return { success: true };
   } catch (error: any) {
