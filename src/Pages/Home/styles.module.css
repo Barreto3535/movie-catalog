@@ -237,10 +237,11 @@
   .hero {
     height: 50vh;
     min-height: 350px;
+   
   }
 
   .content {
-    margin-top: -60px;
+    margin-top: -10px;
   }
 
   .heroContent {
@@ -257,6 +258,8 @@
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    display: none;
+
   }
 
   .section {
