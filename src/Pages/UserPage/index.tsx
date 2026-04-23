@@ -696,6 +696,9 @@ function UserProfile() {
                         Ver todos os pagamentos →
                       </button>
                     )}
+                    <Link to="/change-password" className={styles.subscribeButton}>
+                      Alterar senha
+                    </Link>
                   </div>
                 )}
               </>
