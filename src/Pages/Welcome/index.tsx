@@ -48,8 +48,6 @@ export default function Welcome() {
         <div className={styles.icon}>🎉</div>
 
         <h1 className={styles.title}>Bem-vindo ao Aura Flix!</h1>
-
-
         {!showPasswordForm ? (
           <>
             <p className={styles.message}>
